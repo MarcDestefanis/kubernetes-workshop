@@ -1,8 +1,8 @@
 # Kubernetes workshop
 > Run a French bakery
 
-- [Technologies/tools used](#Technologies/tools used)
-- [Topics covered](#Topics covered)
+- [Technologies/tools used](#Technologies/tools-used)
+- [Topics covered](#Topics-covered)
 - [Install/configure our environment](#Install/configure our environment)
 - [Understand main Kubernetes objects](#Understand main Kubernetes objects)
     - [Namespaces](#Namespaces)
