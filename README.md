@@ -1,31 +1,30 @@
 # Kubernetes workshop
 > Run a French bakery
 
-- [Technologies/tools used](#Technologies/tools-used)
+- [Technologies used](#Technologies-used)
 - [Topics covered](#Topics-covered)
-- [Install/configure our environment](#Install/configure our environment)
-- [Understand main Kubernetes objects](#Understand main Kubernetes objects)
+- [Understand main Kubernetes objects](#Understand-main-Kubernetes-objects)
     - [Namespaces](#Namespaces)
     - [Nodes](#Nodes)
     - [Deployments](#Deployments)
     - [Pods](#Pods)
     - [Services](#Services)
     - [DaemonSets](#DaemonSets)
-- [Configure our environment](#Configure our environment)
+- [Configure our environment](#Configure-our-environment)
     - [kubectl](#kubectl)
-    - [Install a hypervisor](#Install a hypervisor)
+    - [Install a hypervisor](#Install-a-hypervisor)
     - [Minikube](#Minikube)
     - [Kubeconfig](#Kubeconfig)
     - [Istio](#Istio)
     - [Helm](#Helm)
-    - [Kubernetes plugin](#Kubernetes plugin)
-- [Run a French bakery](#Run a French bakery)
+    - [Kubernetes plugin](#Kubernetes-plugin)
+- [Run a French bakery](#Run-a-French-bakery)
     - [Open](#Open)
     - [Refine](#Refine)
     - [Expand](#Expand)
-- [Future possible additions](#Future possible additions)
+- [Future possible additions](#Future-possible-additions)
 
-## Technologies/tools used
+## Technologies used
 
 ## Topics covered
 
@@ -85,7 +84,9 @@ minikube start
 
 ### Kubernetes plugin
 
-## Open
+## Run a French bakery
+
+### Open
 
 - Open the shop
 > Deploy bakery-service Spring Boot application
@@ -102,7 +103,7 @@ kubectl apply -f kubernetes-workshop/k8s/bakery-service
 - Let's advertise our bakery
 > Access Swagger
 
-## Refine
+### Refine
 
 We have faith on the success of *I Love Baguette* bakery.
 Let's extract the baguette fabric from the shop itself.
@@ -117,7 +118,7 @@ Deploy the version 2 of your bakery - update deployment.yaml
 
 Check that it glues together - Query order/baguette endpoint and see service to service communication
 
-## Expand
+### Expand
 
 As we have more and more customers. We don't have any resources left and our chef can't handle the load.
 
