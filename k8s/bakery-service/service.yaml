@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bakery-service-svc
+  labels:
+    component: must-persist
+spec:
+  selector: # target a set of pods with the following labels
+    app: bakery-service
+    version: latest
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
