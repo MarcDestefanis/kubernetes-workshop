@@ -215,11 +215,39 @@ Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kube
 kubectl apply -f k8s/bakery-service
 ```
 
+- Find where the shop has been created
+> Retrieve the IP address of the running cluster
+```bash
+minikube ip
+```
+
+> Store the IP into a variable
+```bash
+CLUSTER_IP=$(minikube ip)
+```
+
+> Store the nodePort into a variable
+```bash
+NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services bakery-service-svc)
+```
+
+- Check that the door is open
+> Query health check endpoint
+```bash
+curl $CLUSTER_IP:$NODEPORT/actuator/health
+```
+
 - A great bakery starts with a great name... What is the name of our shop?
 > Query name endpoint
+```bash
+curl $CLUSTER_IP:$NODEPORT/name
+```
 
 - Your first private client
 > Query order/baguette endpoint. Baguette served!
+```bash
+curl $CLUSTER_IP:$NODEPORT/order/baguette
+```
 
 - Let's advertise our bakery
 > Access Swagger

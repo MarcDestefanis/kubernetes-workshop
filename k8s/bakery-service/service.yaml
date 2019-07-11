@@ -8,6 +8,7 @@ spec:
   selector: # target a set of pods with the following labels
     app: bakery-service
     version: latest
+  type: NodePort
   ports:
   - name: http
     port: 80
