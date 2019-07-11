@@ -6,8 +6,8 @@
 - [Understand main Kubernetes objects](#Understand-main-Kubernetes-objects)
     - [Namespaces](#Namespaces)
     - [Nodes](#Nodes)
-    - [Deployments](#Deployments)
     - [Pods](#Pods)
+    - [Deployments](#Deployments)
     - [Services](#Services)
     - [DaemonSets](#DaemonSets)
 - [Configure our environment](#Configure-our-environment)
@@ -15,9 +15,10 @@
     - [Install a hypervisor](#Install-a-hypervisor)
     - [Minikube](#Minikube)
     - [Kubeconfig](#Kubeconfig)
-    - [Istio](#Istio)
+    - [Your first kubectl command](#Your-first-kubectl-command)
     - [Helm](#Helm)
-    - [Kubernetes plugin](#Kubernetes-plugin)
+    - [Istio](#Istio)
+    - [Visual Studio Code Kubernetes extension](#Visual-Studio-Code-Kubernetes-extension)
 - [Run a French bakery](#Run-a-French-bakery)
     - [Open](#Open)
     - [Refine](#Refine)
@@ -32,13 +33,22 @@
 
 ### Namespaces
 
-https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+> https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
+
+A namespace is a virtual cluster in a physical cluster. We can have multiple virtual clusters in the same physical cluster.
+When we use a specific namespace, we are not able to see the content of another namespace.
+There is a strict logical boundary between namespaces.
+
+When we use kubectl to interact with our Kubernetes cluster, we interact with a specific namespace.
+We can switch between namespaces to interact with our different virtual clusters.
+
+A use case could be for example having a namespace per team or a namespace per environment.
 
 ### Nodes
 
-### Deployments
-
 ### Pods
+
+### Deployments
 
 ### Services
 
@@ -48,7 +58,7 @@ https://kubernetes.io/docs/concepts/overview/working-with-objects/namespaces/
 
 ### kubectl
 
-https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos
+> https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-on-macos
 
 - Install on macOS using Homebrew
 ```bash
@@ -64,7 +74,7 @@ https://www.virtualbox.org/wiki/Downloads
 
 ### Minikube
 
-https://kubernetes.io/docs/tasks/tools/install-minikube/
+> https://kubernetes.io/docs/tasks/tools/install-minikube/
 
 - Install on macOS using Homebrew 
 ```bash
@@ -76,13 +86,119 @@ brew cask install minikube
 minikube start
 ```
 
+#### Delete Minikube
+
+-  Delete minikube and clean our environment
+
+```bash
+minikube delete
+rm -rf ~/.minikube ~/.kube
+```
+
 ### Kubeconfig
 
-### Istio
+> https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/
+
+By default, kubectl looks for a file named config in the `$HOME/.kube` directory. 
+We can specify other kubeconfig files by setting the KUBECONFIG environment variable or by setting the --kubeconfig flag when we perform kubectl commands.
+
+- Let's have a look to our kubeconfig file created by Minikube.
+```bash
+cat ~/.kube/config
+```
+
+This file contains information to connect to our local Kubernetes cluster. 
+We can now run kubectl commands on that cluster.
+
+### Your first kubectl command
+
+Now that we have Minikube installed and our local Kubernetes cluster up and running, we can start playing with our cluster.
+
+-  Let's run our first kubectl command!
+
+```bash
+kubectl cluster-info
+```
+
+> You should get a similar output
+```text
+➜  ~ kubectl cluster-info
+Kubernetes master is running at https://192.168.99.100:8443
+KubeDNS is running at https://192.168.99.100:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+```
 
 ### Helm
 
-### Kubernetes plugin
+> https://helm.sh/
+
+Helm is a package manager for Kubernetes, allowing us to install, upgrade, delete components in our Kubernetes cluster.
+
+> https://github.com/helm/helm#install
+
+-  Install Helm client
+
+```bash
+brew install kubernetes-helm
+```
+
+### Istio
+
+> https://istio.io/
+
+Istio is a service mesh that will help us in our microservices journey with Kubernetes. 
+It helps us on common problems/needs while running microservices. 
+It adds observability, traffic management, allows canary deployment and other useful features (see official documentation).
+
+> https://istio.io/docs/setup/kubernetes/#downloading-the-release
+
+> Download Istio
+```bash
+curl -L https://git.io/getLatestIstio | ISTIO_VERSION=1.1.8 sh -
+```
+
+```bash
+cd istio-1.1.8
+```
+
+> Create tiller ServiceAccount and bind it to cluster-admin ClusterRole
+```bash
+kubectl apply -f install/kubernetes/helm/helm-service-account.yaml
+```
+
+> Install Helm server-side component (tiller) into our cluster
+```bash
+helm init --service-account tiller
+```
+
+> Install Istio on our Kubernetes cluster
+```bash
+helm install install/kubernetes/helm/istio-init --name istio-init --namespace istio-system
+```
+
+```bash
+helm install install/kubernetes/helm/istio --name istio --namespace istio-system
+```
+
+> Enable automatic sidecar (Envoy Proxy) injection
+```bash
+kubectl label namespace default istio-injection=enabled
+```
+
+### Visual Studio Code Kubernetes extension
+
+This Kubernetes plugin allows us to have a view on our Kubernetes cluster(s). 
+It reads our kubeconfig and embed kubectl commands to retrieve information.
+We can access logs, connect to specific pods etc.
+
+- Install Visual Studio Code
+
+> https://code.visualstudio.com/
+
+- Install Kubernetes extension
+
+> https://code.visualstudio.com/docs/azure/kubernetes
+
+Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kubernetes. Then install the Microsoft Kubernetes extension,. 
 
 ## Run a French bakery
 
