@@ -88,6 +88,9 @@ minikube start
 
 #### Delete Minikube
 
+:heavy_exclamation_mark: We are not supposed to delete Minikube, this workshop uses a local Kubernetes cluster created by Minikube.
+But if needed then you know how to delete Minikube and clean your environment.
+
 -  Delete minikube and clean our environment
 
 ```bash
