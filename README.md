@@ -1,5 +1,5 @@
 # Kubernetes workshop
-> Run a French bakery
+> Run a French bakery & learn Kubernetes
 
 - [Technologies used](#Technologies-used)
 - [Topics covered](#Topics-covered)
@@ -46,13 +46,47 @@ A use case could be for example having a namespace per team or a namespace per e
 
 ### Nodes
 
+> https://kubernetes.io/docs/concepts/architecture/nodes/
+
+A node is a physical or virtual machine represented in Kubernetes as a *worker*.
+Each node contains all required components to run pods.
+A Kubernetes cluster contains a set of nodes/machines with specific allocated CPU and memory.
+
 ### Pods
+
+> https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/
+
+A pod is the smallest deployable object in Kubernetes. 
+It encapsulates application's container(s).
 
 ### Deployments
 
+> https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+Deployments are wrappers on top of pods.
+
+It allows to describe replicaSets that define the number of pod replicas for an application deployed as a pod.
+
+In a deployment we define how to retrieve the image used by our pods and a tag as well. 
+That allows us to easily rollout to a new version of our application.
+
+We can have a deployment for each services that we deploy in Kubernetes.
+
 ### Services
 
+> https://kubernetes.io/docs/concepts/services-networking/service/
+
+Services define a way to access an application running on a set of pods.
+
 ### DaemonSets
+
+> https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/
+
+A DaemonSet describes a pod that runs on each of our nodes. 
+If our cluster scales out, the corresponding pod will start on this new node.
+
+An example would be a fluentd pod that collects our application logs. 
+It is required for this pod to be running on each of our nodes in which we want to collect logs.
 
 ## Configure our environment
 
