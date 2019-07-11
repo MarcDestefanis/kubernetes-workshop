@@ -82,8 +82,10 @@ brew cask install minikube
 ```
 
 - Create a local Kubernetes cluster
+> By default, minikube starts a node with only 2048MB of memory and 2cpus. 
+We can use flags to configure the resources we want to allocate to our node.
 ```bash
-minikube start
+minikube start --memory 4096 --cpus 4
 ```
 
 #### Delete Minikube
@@ -210,7 +212,7 @@ Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kube
 - Open the shop
 > Deploy bakery-service Spring Boot application
 ```bash
-kubectl apply -f kubernetes-workshop/k8s/bakery-service
+kubectl apply -f k8s/bakery-service
 ```
 
 - A great bakery starts with a great name... What is the name of our shop?
