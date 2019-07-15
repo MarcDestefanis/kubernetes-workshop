@@ -1,6 +1,8 @@
 # Kubernetes workshop
 > Run a French bakery & learn Kubernetes
 
+![Kubernetes baguette logo](kubernetes-baguette.png?raw=true "Kubernetes baguette logo")
+
 - [Technologies used](#Technologies-used)
 - [Topics covered](#Topics-covered)
 - [Understand main Kubernetes objects](#Understand-main-Kubernetes-objects)
