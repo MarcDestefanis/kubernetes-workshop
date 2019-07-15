@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class BakeryController {
     private static final String bakeryName = "I Love Baguette";
 
-    @GetMapping("/name")
+    @GetMapping("name")
     public String getBakeryName(){
         return bakeryName;
     }

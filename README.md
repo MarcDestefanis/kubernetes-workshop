@@ -237,7 +237,7 @@ We can access logs, connect to specific pods etc.
 
 > https://code.visualstudio.com/docs/azure/kubernetes
 
-Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kubernetes. Then install the Microsoft Kubernetes extension,. 
+Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kubernetes. Then install the Microsoft Kubernetes extension. 
 
 ## Run a French bakery
 
@@ -282,9 +282,6 @@ curl $CLUSTER_IP:$NODEPORT/name
 ```bash
 curl $CLUSTER_IP:$NODEPORT/order/baguette
 ```
-
-- Let's advertise our bakery
-> Access Swagger
 
 ### Refine
 
