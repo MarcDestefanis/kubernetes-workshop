@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: chef-service-svc
+  labels:
+    component: must-persist
+spec:
+  selector: # target a set of pods with the following labels
+    app: chef-service
+    version: latest
+  type: NodePort
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP

@@ -119,7 +119,7 @@ brew cask install minikube
 > By default, minikube starts a node with only 2048MB of memory and 2cpus. 
 We can use flags to configure the resources we want to allocate to our node.
 ```bash
-minikube start --memory 4096 --cpus 4
+minikube start --memory 5120 --cpus 4
 ```
 
 #### Delete Minikube
@@ -260,27 +260,27 @@ minikube ip
 CLUSTER_IP=$(minikube ip)
 ```
 
-> Store the nodePort into a variable
+> Store the bakery-service nodePort into a variable
 ```bash
-NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services bakery-service-svc)
+BAKERY_NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services bakery-service-svc)
 ```
 
 - Check that the door is open
 > Query health check endpoint
 ```bash
-curl $CLUSTER_IP:$NODEPORT/actuator/health
+curl $CLUSTER_IP:$BAKERY_NODEPORT/actuator/health
 ```
 
 - A great bakery starts with a great name... What is the name of our shop?
 > Query name endpoint
 ```bash
-curl $CLUSTER_IP:$NODEPORT/name
+curl $CLUSTER_IP:$BAKERY_NODEPORT/name
 ```
 
 - Your first private client
 > Query order/baguette endpoint. Baguette served!
 ```bash
-curl $CLUSTER_IP:$NODEPORT/order/baguette
+curl $CLUSTER_IP:$BAKERY_NODEPORT/order/baguette
 ```
 
 ### Refine
@@ -290,9 +290,21 @@ Let's extract the baguette fabric from the shop itself.
 
 - Hire a chef from France
 > Deploy our chef service
+```bash
+kubectl apply -f k8s/chef-service
+```
+
+> Store the chef-service nodePort into a variable
+```bash
+CHEF_NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services chef-service-svc)
+```
   
 - Taste the baguette
 > Query cook/baguette endpoint. Hmm delicious!
+```bash
+curl $CLUSTER_IP:$CHEF_NODEPORT/baguette
+```
+
 
 Deploy the version 2 of your bakery - update deployment.yaml
 
