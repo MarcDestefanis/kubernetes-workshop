@@ -246,9 +246,9 @@ Open Visual Studio Code, go to `Code>Preferences>Extensions` And search for Kube
 ### Open
 
 - Open the shop
-> Deploy bakery-service Spring Boot application
+> Deploy bakery-service-v1 Spring Boot application
 ```bash
-kubectl apply -f k8s/bakery-service
+kubectl apply -f k8s/bakery-service-v1
 ```
 
 - Find where the shop has been created
@@ -302,15 +302,26 @@ CHEF_NODEPORT=$(kubectl get -o jsonpath="{.spec.ports[0].nodePort}" services che
 ```
   
 - Taste the baguette
-> Query cook/baguette endpoint. Hmm delicious!
+> Query baguette endpoint. Hmm delicious!
 ```bash
 curl $CLUSTER_IP:$CHEF_NODEPORT/baguette
 ```
 
+- Build the new bakery
+> Deploy bakery-service-v2
+```bash
+kubectl apply -f k8s/bakery-service-v2/
+```
 
-Deploy the version 2 of your bakery - update deployment.yaml
-
-Check that it glues together - Query order/baguette endpoint and see service to service communication
+- Make a baguette order from our bakery to our chef
+> bakery-service-v2 calls chef-service
+```bash
+curl $CLUSTER_IP:$BAKERY_NODEPORT/order/baguette
+```
+> Check the logs
+```bash
+kubectl logs $(kubectl get pods | grep bakery-service-v2 | cut -d ' ' -f 1) bakery-service-container
+```
 
 ### Expand
 
@@ -322,11 +333,11 @@ But we would have to buy or rent new lands as well.
 
 If the lands start to get to expensive we could as well build vertically and expand on top of our shop.
 
-  Open new shops - HPA (Horizontal Pod Autoscaler)
+- Open new shops - HPA (Horizontal Pod Autoscaler)
   
-  Rent new lands - Cluster autoscaler
+- Rent new lands - Cluster autoscaler
   
-  Build vertically - VPA (Vertical Pod Autoscaler)
+- Build vertically - VPA (Vertical Pod Autoscaler)
 
 ## Future possible additions
 

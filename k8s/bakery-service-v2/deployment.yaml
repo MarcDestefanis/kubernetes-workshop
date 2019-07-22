@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bakery-service-v2
+spec:
+  selector: # the deployment target a set of pods with the following labels
+    matchLabels:
+      app: bakery-service
+      version: v2
+  replicas: 1
+  template:
+    metadata:
+      labels: # the labels of our pods
+        app: bakery-service
+        version: v2
+    spec:
+      containers:
+      - name: bakery-service-container
+        image: marcdestefanis/bakery-service:v2 # pull the image from Docker Hub
+        imagePullPolicy: Always
+        resources:
+          requests:
+            cpu: "50m"
+            memory: "64Mi"
+          limits:
+            cpu: "50m"
+            memory: "512Mi"
+        env:
+        - name: "spring.profiles.active"
+          value: default
+        ports:
+        - containerPort: 80 # port exposed in our Dockerfile
